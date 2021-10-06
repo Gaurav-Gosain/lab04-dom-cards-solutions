@@ -79,26 +79,26 @@ function Card(element, index) {
 }
 
 var timer;
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
 
 function startTimer() {
-  var minutesLabel = document.getElementById("minutes");
-  var secondsLabel = document.getElementById("seconds");
-  var totalSeconds = 0;
   timer = setInterval(setTime, 1000);
+}
 
-  function setTime() {
-    ++totalSeconds;
-    secondsLabel.innerHTML = pad(totalSeconds % 60);
-    minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-  }
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
 
-  function pad(val) {
-    var valString = val + "";
-    if (valString.length < 2) {
-      return "0" + valString;
-    } else {
-      return valString;
-    }
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
   }
 }
 
@@ -265,9 +265,9 @@ function handleCardFlipped(card) {
       stopTimer();
       //game is won
       alert(
-        `You won! Time taken: ${
-          document.getElementsByClassName('time').innerHTML
-        }`
+        `You won! Time taken: ${pad(parseInt(totalSeconds / 60))}:${pad(
+          totalSeconds % 60
+        )}`
       );
     }
 
